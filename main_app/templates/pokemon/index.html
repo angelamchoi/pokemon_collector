@@ -2,8 +2,6 @@
 {% block content %}
 
 <h1>Pokemon List</h1>
-<!-- 
-{% for pokemon in pokemons %} -->
   <div class="card">
     <a href="{% url 'detail' pokemon.id %}">
     <div class="card-content">
@@ -19,7 +17,6 @@
     </div>
   </a>
   </div>
-<!-- {% endfor %} -->
 
 {% endblock %}
 
