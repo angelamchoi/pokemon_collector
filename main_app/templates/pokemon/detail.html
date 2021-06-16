@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Pokemon Details</h1>
+
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ pokemon.name }}</span>
+        <p>Breed: {{ pokemon.breed }}</p>
+        <p>Abilities: {{ pokemon.abilities }}</p>
+        {% if pokemon.number > 0 %}
+            <p>Number: {{ pokemon.age }}</p>
+        {% else %}
+         <p>Number: {{ pokemon.age }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
