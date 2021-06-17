@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--leave the action empty so the form posts to the same url-->
+<form action="" method ="post">
+    {% csrf_token %}
+    <table>
+<!-- Render the inputs of tr & td-->
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit!" class="btn">
+</form>
+{% endblock %}
+
+<!------------------Notes------------------------>
+<!--csrf_token makes it difficult to perform a cross-site request forgery-->

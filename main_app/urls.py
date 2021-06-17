@@ -6,4 +6,5 @@ urlpatterns =[
     path('about/', views.about, name='about'), #about
     path('pokemon/', views.pokemon_index, name='index'), #pokemons
     path('pokemon/<int:pokemon_id>/', views.pokemon_detail, name='detail'), #details
+    path('pokemon/create', views.PokemonCreate.as_view(), name ='pokemon_create'), #create CBV
 ]

@@ -21,9 +21,11 @@
         </ul>
         <ul class="right">
             <!--About-->
-          <li><a href="/about">About</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <!--Create-->
+          <li><a href="{% url 'pokemon_create' %}">Add a Pokemon</a></li>
           <!--View all-->
-          <li><a href="/pokemon">View All My Pokemon</a></li>
+          <li><a href="{% url 'index' %}">View All my Pokemon</a></li>
         </ul>
       </div>
     </nav>

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView #create view
 from .models import Pokemon #import Pokemon Data
 
 # View functions
@@ -15,3 +16,9 @@ def pokemon_index(request):
 def pokemon_detail(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
     return render(request, 'pokemon/detail.html', {'pokemon': pokemon})
+
+# PokemonCBV
+class PokemonCreate(CreateView):
+    model = Pokemon
+    fields ='__all__'
+    success='/pokemon/'
