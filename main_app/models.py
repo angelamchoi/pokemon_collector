@@ -13,5 +13,5 @@ class Pokemon(models.Model):
         return self.name
 
 # Method
-def get_absolute_url(self):
-    return reverse('detail', kwargs={'pokemon_id': self.id})
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'pokemon_id': self.id})
