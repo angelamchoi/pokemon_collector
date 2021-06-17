@@ -4,11 +4,11 @@ from . import views
 urlpatterns =[
     path('', views.home, name='home'), #homepage
     path('about/', views.about, name='about'), #about
-    path('pokemon/', views.pokemon_index, name='index'), #pokemons
-    path('pokemon/<int:pokemon_id>/', views.pokemon_detail, name='detail'), #details
-    path('pokemon/create', views.PokemonCreate.as_view(), name ='pokemon_create'), #create CBV
-    path('pokemon/<int:pk>/update/', views.PokemonUpdate.as_view(), name='pokemon_update'), #update
-    path('pokemon/<int:pk>/delete/', views.PokemonDelete.as_view(), name='pokemon_delete'), #delete
+    path('pokemons/', views.pokemons_index, name='index'), #pokemons
+    path('pokemons/<int:pokemon_id>/', views.pokemons_detail, name='detail'), #details
+    path('pokemons/create/', views.PokemonCreate.as_view(), name ='pokemons_create'), #create CBV
+    path('pokemons/<int:pk>/update/', views.PokemonUpdate.as_view(), name='pokemons_update'), #update
+    path('pokemons/<int:pk>/delete/', views.PokemonDelete.as_view(), name='pokemons_delete'), #delete
 ]
 
 #### Notes #####
