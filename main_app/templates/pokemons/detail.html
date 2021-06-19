@@ -3,23 +3,39 @@
 
 <h1>Pokemon Details</h1>
 
-<div class="card">
-    <div class="card-content">
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
         <span class="card-title">{{ pokemon.name }}</span>
         <p>Breed: {{ pokemon.breed }}</p>
-        <p>Abilities: {{ pokemon.abilities }}</p>
+        <p>Description: {{ pokemon.description }}</p>
         {% if pokemon.number > 0 %}
-            <p>Number: {{ pokemon.age }}</p>
+          <p>Number: {{ pokemon.number }}</p>
         {% else %}
-         <p>Number: {{ pokemon.age }}</p>
+          <p>Number: {{ pokemon.number }}</p>
         {% endif %}
-    </div>
-<!--card action-->
-    <div class ="card-action">
+      </div>
+      <div class="card-action">
         <a href="{% url 'pokemons_update' pokemon.id %}">Edit</a>
         <a href="{% url 'pokemons_delete' pokemon.id %}">Delete</a>
+      </div>
     </div>
-
+  </div>
+  <div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Meal</th></tr>
+      </thead>
+      <tbody>
+        {% for feeding in pokemon.feeding_set.all %}
+          <tr>
+            <td>{{feeding.date}}</td>
+            <td>{{feeding.get_meal_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
-
 {% endblock %}
