@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView #import all views
 from .models import Pokemon #import Pokemon Data
+from . forms import FeedingForm #import feeding data
 
 # View functions
 def home(request):
@@ -15,7 +16,12 @@ def pokemons_index(request):
 
 def pokemons_detail(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
-    return render(request, 'pokemons/detail.html', { 'pokemon': pokemon })
+    feeding_form = FeedingForm()
+    return render(request, 'pokemons/detail.html', { 
+        'pokemon': pokemon, 'feeding_form': feeding_form   
+    })
+
+# In the details page, we want to show the pokemon and feeding form
 
 ### Pokemon CBV ###
 
