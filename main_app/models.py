@@ -31,11 +31,12 @@ class Feeding(models.Model):
         choices=MEALS,
         default=MEALS[0][0] #default to be 'B'
     )
-
     #pokemon FK
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
     
     def __str__(self):
         # Nice method for obtaining the friendly value of a Field.choice
         return f"{self.get_meal_display()} on {self.date}"
-
+        
+    class Meta:
+        ordering =['-date']

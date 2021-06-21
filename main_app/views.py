@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect #import render and redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView #import all views
 from .models import Pokemon #import Pokemon Data
 from . forms import FeedingForm #import feeding data
@@ -20,8 +20,16 @@ def pokemons_detail(request, pokemon_id):
     return render(request, 'pokemons/detail.html', { 
         'pokemon': pokemon, 'feeding_form': feeding_form   
     })
-
+    
 # In the details page, we want to show the pokemon and feeding form
+
+def add_feeding(request, pokemon_id):
+    form = FeedingForm(request.POST)
+    if form.is_valid():
+        new_feeding = form.save(commit=False)
+        new_feeding.pokemon_id = pokemon_id
+        new_feeding.save()
+    return redirect('detail', pokemon_id=pokemon_id)
 
 ### Pokemon CBV ###
 
