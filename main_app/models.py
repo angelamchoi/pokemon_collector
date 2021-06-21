@@ -11,7 +11,7 @@ MEALS = (
 )
 
 # toy model
-class Toy(models.Model)
+class Toy(models.Model):
     name = models.CharField(max_length=50)
     color = models.CharField(max_length=20)
 
@@ -20,9 +20,6 @@ class Toy(models.Model)
 
     def get_absolute_url(self):
         return reverse('toys_detail', kwargs={'pk': self.id})
-
-    def fed_for_today(self):
-        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
 # pokemon model
 class Pokemon(models.Model):
@@ -39,6 +36,9 @@ class Pokemon(models.Model):
 # Method
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pokemon_id': self.id})
+
+    def fed_for_today(self):
+        return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
 
 # feeding model
 class Feeding(models.Model):
