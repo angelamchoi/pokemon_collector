@@ -9,10 +9,10 @@
   <title>Pokemon Collector</title>
 <!--materialize stylesheet-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--script-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 <!--my stylesheet-->
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-<!--script-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
 </head>
 <body>
   <header class="navbar-fixed">
@@ -24,7 +24,11 @@
         <ul class="right">
             <!--About-->
           <li><a href="{% url 'about' %}">About</a></li>
-          <!--Create-->
+          <!--Add a toy-->
+          <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+          <!--View all-->
+          <li><a href="{% url 'toys_index' %}">View all Toys</a></li>
+          <!--Add a pokemon-->
           <li><a href="{% url 'pokemons_create' %}">Add a Pokemon</a></li>
           <!--View all-->
           <li><a href="{% url 'index' %}">View All my Pokemon</a></li>
