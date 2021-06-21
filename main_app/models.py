@@ -7,8 +7,8 @@ from datetime import date # date
 MEALS = (
     ('B', 'Breakfast'),
     ('L', 'Lunch'),
-    ('D', 'Dinner')
-    # ('S', 'Snack')
+    ('D', 'Dinner'),
+    ('S', 'Snack')
 )
 
 # toy model
