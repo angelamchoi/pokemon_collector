@@ -1,6 +1,7 @@
 from collections import namedtuple
 from django.db import models
 from django.urls import reverse #reverse
+from datetime import date # date
 
 # Constants
 MEALS = (
@@ -39,6 +40,7 @@ class Pokemon(models.Model):
 
     def fed_for_today(self):
         return self.feeding_set.filter(date=date.today()).count() >= len(MEALS)
+
 
 # feeding model
 class Feeding(models.Model):

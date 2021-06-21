@@ -36,13 +36,14 @@ def pokemons_index(request):
 
 def pokemons_detail(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
-    toys_pokemon_doesnt_have = Toy.objects.exclude(id_in = pokemon.toys.all().values_list('id'))
+    # instantiate FeedingForm to be rendered in the template
     feeding_form = FeedingForm()
-    return render(request, 'pokemons/detail.html', { 
-        'pokemon': pokemon, 'feeding_form': feeding_form,
-        'toys': toys_pokemon_doesnt_have   
+    toys_pokemon_doesnt_have = Toy.objects.exclude(
+        id__in=pokemon.toys.all().values_list('id'))
+    return render(request, 'pokemons/detail.html', {
+        # pass the pokemon and feeding_form as context
+        'pokemon': pokemon, 'feeding_form': feeding_form, 'toys': toys_pokemon_doesnt_have
     })
-    
 # In the details page, we want to show the pokemon and feeding form
 
 def add_feeding(request, pokemon_id):
