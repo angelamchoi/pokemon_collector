@@ -64,7 +64,6 @@
               A <span style="color: {{ toy.color }}">{{ toy.color }}</span> {{ toy.name }}
             </span>
           </div>
-        </div>
         <!-- Remove a Cat Toy -->
       <div class="card-action">
         <form action="{% url 'unassoc_toy' cat.id toy.id %}" method="post">
@@ -73,12 +72,12 @@
         </form>
       </div>
     </div>
-        {% endfor %}
+      {% endfor %}
       {% else %}
         <h5>No Toys :(</h5>
       {% endif %}
     </div>
-</div>
+
 <!--Available Toys-->
 <div class="col s6">
   <h3>Available Toys</h3>
@@ -101,12 +100,13 @@
   {% else %}
     <h5>{{pokemon.name}} Already Has All Toys Available</h5>
   {% endif %}
+  </div>
 </div>
 <!--Materialize JS functions-->
 <script>
     // Date Picker
     const dateEl = document.getElementsById('id_date');
-    window.M.Datepicker.init(dateEl, {
+    M.Datepicker.init(dateEl, {
         format: 'yyyy-mm-dd',
         defaultDate: new Date(),
         setDefaultDate: true,
@@ -114,7 +114,7 @@
     });
     // select menu
     const selectEl = document.getElementById('id_meal');
-    window.M.FormSelect.init(selectEl);
+    M.FormSelect.init(selectEl);
 </script>
 
 {% endblock %}
