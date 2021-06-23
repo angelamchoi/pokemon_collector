@@ -17,6 +17,7 @@ urlpatterns =[
     path('toys/<int:pk>/delete/', views.ToyDelete.as_view(), name='toys_delete'),
     path('pokemons/<int:pokemon_id>/assoc_toy/<int:toy_id>/',views.assoc_toy, name='assoc_toy'),
     path('pokemons/<int:pokemon_id>/unassoc_toy/<int:toy_id>/', views.unassoc_toy, name='unassoc_toy'),
+    path('pokemons/<int:pokemon_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
 
 #### Notes #####

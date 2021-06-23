@@ -1,9 +1,17 @@
-from django.forms.utils import to_current_timezone
 from django.shortcuts import render, redirect #import render and redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView #import all views
 from django.views.generic import ListView, DetailView # import listview and detailview for toy
-from .models import Pokemon, Toy #import Pokemon & Toy Data
+
+# AWS
+import uuid #generates random string
+import boto3
+
+from .models import Pokemon, Toy, Photo #import Pokemon, Toy, Photo
 from . forms import FeedingForm #import feeding data
+
+# Constant variables 
+S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
+BUCKET = 'pokemoncollector12345'
 
 ### Pokemon CBV ###
 
@@ -54,6 +62,24 @@ def add_feeding(request, pokemon_id):
         new_feeding.save()
     return redirect('detail', pokemon_id=pokemon_id)
 
+def add_photo(request, pokemon_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to pokemon_id or pokemon (if you have a pokemon object)
+            photo = Photo(url=url, pokemon_id=pokemon_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', pokemon_id=pokemon_id)
 
 ### Toy CBV ###
 class ToyList(ListView):
