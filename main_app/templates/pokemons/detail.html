@@ -22,7 +22,7 @@
       </div>
     </div>
 <!--Photo-->
-   {% for photo in cat.photo_set.all %}
+   {% for photo in pokemon.photo_set.all %}
       <img class="responsive-img card-panel" src="{{photo.url}}">
     {% empty %}
       <div class="card-panel teal-text center-align">No Photos Uploaded</div>
@@ -120,7 +120,7 @@
 <!--Materialize JS functions-->
 <script>
     // Date Picker
-    const dateEl = document.getElementsById('id_date');
+    const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
         format: 'yyyy-mm-dd',
         defaultDate: new Date(),
