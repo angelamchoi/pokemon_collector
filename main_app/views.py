@@ -37,8 +37,6 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
-
-
 # Create
 class PokemonCreate(LoginRequiredMixin, CreateView):
     model = Pokemon
