@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect #import render and redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView #import all views
 from django.views.generic import ListView, DetailView # import listview and detailview for toy
-from django.contrib.auth import login 
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login #login
+from django.contrib.auth.forms import UserCreationForm #form
+from django.contrib.auth.decorators import login_required #@login_required
+from django.contrib.auth.mixins import LoginRequiredMixin #login required mixin
 
 # AWS
 import uuid #generates random string
