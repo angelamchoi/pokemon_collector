@@ -27,13 +27,16 @@
           {% if user.is_authenticated %}
           <!--Add a toy-->
             <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
-          <!--View all-->
+          <!--View all toys-->
             <li><a href="{% url 'toys_index' %}">View all Toys</a></li>
           <!--Add a pokemon-->
             <li><a href="{% url 'pokemons_create' %}">Add a Pokemon</a></li>
-          <!--View all-->
+          <!--View all pokemons-->
             <li><a href="{% url 'index' %}">View All my Pokemon</a></li>
+          <!--Logout-->
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
             <li><a href="{% url 'login' %}">Log In</a></li>
           {% endif %}
         </ul>

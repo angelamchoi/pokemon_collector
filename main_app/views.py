@@ -69,7 +69,7 @@ def about(request):
 
 @login_required
 def pokemons_index(request):
-    pokemons = Pokemon.objects.all()
+    pokemons = Pokemon.objects.filter(user=request.user)
     return render(request, 'pokemons/index.html', { 'pokemons': pokemons})
 
 @login_required
