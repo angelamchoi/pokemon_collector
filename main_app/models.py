@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse #reverse
 from datetime import date # date
+from django.contrib.auth.models import User
 
 # Constants
 MEALS = (
@@ -14,6 +15,7 @@ MEALS = (
 class Toy(models.Model):
     name = models.CharField(max_length=50)
     color = models.CharField(max_length=20)
+    
 
     def __str__(self):
         return self.name
@@ -28,6 +30,8 @@ class Pokemon(models.Model):
     abilities = models.TextField(max_length=250)
     number = models.IntegerField()
     toys = models.ManyToManyField(Toy) #M:M relationship
+     # Add the foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 # use str method 
     def __str__(self):

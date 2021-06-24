@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect #import render and redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView #import all views
 from django.views.generic import ListView, DetailView # import listview and detailview for toy
+from django.contrib.auth import login 
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # AWS
 import uuid #generates random string
@@ -14,20 +18,45 @@ S3_BASE_URL = 'https://s3.us-west-1.amazonaws.com/'
 BUCKET = 'pokemoncollector12345'
 
 ### Pokemon CBV ###
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+    # This is how to create a 'user' form object
+    # that includes the data from the browser
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+      # This will add the user to the database
+            user = form.save()
+      # This is how we log a user in via code
+        login(request, user)
+        return redirect('index')
+    else:
+        error_message = 'Invalid credentials - try again'
+  # A bad POST or a GET request, so render signup.html with an empty form
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
+
+
 
 # Create
-class PokemonCreate(CreateView):
+class PokemonCreate(LoginRequiredMixin, CreateView):
     model = Pokemon
-    fields = '__all__'
+    fields = ['name', 'breed', 'abilities', 'number']
     success_url= '/pokemons/'
+    def form_valid(self, form):
+        # Assign the logged in user (self.request.user)
+        form.instance.user = self.request.user  # form.instance is the pokemon
+    # Let the CreateView do its job as usual
+        return super().form_valid(form)
 
 # Update
-class PokemonUpdate(UpdateView):
+class PokemonUpdate(LoginRequiredMixin, UpdateView):
     model = Pokemon
     fields= ['breed', 'abilities', 'number']
 
 # Delete
-class PokemonDelete(DeleteView):
+class PokemonDelete(LoginRequiredMixin, DeleteView):
     model = Pokemon
     success_url= '/pokemons/'
 
@@ -38,10 +67,12 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def pokemons_index(request):
     pokemons = Pokemon.objects.all()
     return render(request, 'pokemons/index.html', { 'pokemons': pokemons})
 
+@login_required
 def pokemons_detail(request, pokemon_id):
     pokemon = Pokemon.objects.get(id=pokemon_id)
     # instantiate FeedingForm to be rendered in the template
@@ -54,6 +85,7 @@ def pokemons_detail(request, pokemon_id):
     })
 # In the details page, we want to show the pokemon and feeding form
 
+@login_required
 def add_feeding(request, pokemon_id):
     form = FeedingForm(request.POST)
     if form.is_valid():
@@ -62,6 +94,7 @@ def add_feeding(request, pokemon_id):
         new_feeding.save()
     return redirect('detail', pokemon_id=pokemon_id)
 
+@login_required
 def add_photo(request, pokemon_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -100,10 +133,12 @@ class ToyDelete(DeleteView):
     model = Toy
     success_url = '/toys'
 
+@login_required
 def assoc_toy(request, pokemon_id, toy_id):
     Pokemon.objects.get(id=pokemon_id).toys.add(toy_id)
     return redirect('detail', pokemon_id=pokemon_id)
 
+@login_required
 def unassoc_toy(request, pokemon_id, toy_id):
     Pokemon.objects.get(id=pokemon_id).toys.remove(toy_id)
     return redirect('detail', pokemon_id=pokemon_id)

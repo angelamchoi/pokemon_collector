@@ -24,14 +24,18 @@
         <ul class="right">
             <!--About-->
           <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
           <!--Add a toy-->
-          <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
+            <li><a href="{% url 'toys_create' %}">Add a Toy</a></li>
           <!--View all-->
-          <li><a href="{% url 'toys_index' %}">View all Toys</a></li>
+            <li><a href="{% url 'toys_index' %}">View all Toys</a></li>
           <!--Add a pokemon-->
-          <li><a href="{% url 'pokemons_create' %}">Add a Pokemon</a></li>
+            <li><a href="{% url 'pokemons_create' %}">Add a Pokemon</a></li>
           <!--View all-->
-          <li><a href="{% url 'index' %}">View All my Pokemon</a></li>
+            <li><a href="{% url 'index' %}">View All my Pokemon</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>
